@@ -119,23 +119,24 @@ echo "WIDGETS=${#WIDGET_LAYOUTS[@]}"
 # DB loop
 ########################################
 
-mapfile -t DBS < <(
-  find "$DB_DIR" -maxdepth 1 -type f -name 'launcher*.db' | sort
-)
+########################################
+# Target DB selection
+########################################
 
-[ "${#DBS[@]}" -gt 0 ] || {
-  echo "ERROR: launcher db not found"
+# Берем имя базы из названия выбранной папки экспорта
+TARGET_DB_NAME="$(basename "$EXPORT_DIR").db"
+TARGET_DB_PATH="$DB_DIR/$TARGET_DB_NAME"
+
+# Проверяем, существует ли нужная база
+if [ ! -f "$TARGET_DB_PATH" ]; then
+  echo "ERROR: Target database $TARGET_DB_NAME not found in $DB_DIR"
   exit 1
-}
+fi
 
-SELECTED_DBS=("${DBS[@]}")
+# Указываем скрипту работать ТОЛЬКО с этой базой
+SELECTED_DBS=("$TARGET_DB_PATH")
 
-echo "DB=[$DB]"
-echo "SELECTED=${#SELECTED_DBS[@]}"
-
-for x in "${SELECTED_DBS[@]}"; do
-  echo "DB_ITEM=[$x]"
-done
+echo "TARGET DB=[$TARGET_DB_NAME]"
 
 for DB in "${SELECTED_DBS[@]}"; do
 
