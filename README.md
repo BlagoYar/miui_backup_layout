@@ -1,4 +1,4 @@
-# 📱 MIUI Backup Layouts
+# <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Xiaomi_logo.svg" width="35" height="35" align="top"> MIUI Backup Layouts
 
 Набор скриптов для сохранения и восстановления расположения иконок, папок, виджетов и других элементов рабочего стола MIUI (`com.miui.home`).
 
